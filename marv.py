@@ -48,8 +48,8 @@ def main(bot_name="Marv"):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Name the bot.")
-    parser.add_argument("--name", type=str, help="Specify the bot name")
+    parser = argparse.ArgumentParser(description="Marv the sarcastic bot.")
+    parser.add_argument("--name", type=str, help="Override the default bot name (Marv)")
     args = parser.parse_args()
     if args.name:
         main(bot_name=args.name)
