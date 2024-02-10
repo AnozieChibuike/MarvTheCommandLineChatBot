@@ -6,8 +6,9 @@ from unratedwriting import typewrite
 import argparse
 import os
 
-
+# Load environment 
 load_dotenv()
+
 try:
     client = OpenAI()
 except OpenAIError as e:
