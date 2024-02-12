@@ -18,6 +18,10 @@ except OpenAIError as e:
 
 
 def main(bot_name="Marv"):
+    """
+    >>>2 + 2
+    4
+    """
     print()
     typewrite(f"Hi I am {Fore.YELLOW}{bot_name}{Style.RESET_ALL} your sarcastic AI bot")
     print()
@@ -36,19 +40,7 @@ def main(bot_name="Marv"):
             inp = input(f"{Fore.GREEN}{name}{Style.RESET_ALL}: ")
             messages.append({"role": "user", "content": inp})
             try:
-                response = client.chat.completions.create(
-                    model="gpt-3.5-turbo",
-                    messages=messages,
-                    temperature=0.5,
-                    max_tokens=256,
-                    top_p=1,
-                    frequency_penalty=0,
-                    presence_penalty=0,
-                )
-
-                jsonResponse = json.loads(response.model_dump_json())["choices"][0]["message"][
-                    "content"
-                ]
+                jsonResponse = callGPT(messages)
                 messages.append({"role": "assistant", "content": jsonResponse})
                 print()
                 typewrite(f"{Fore.YELLOW}{bot_name}{Style.RESET_ALL}: {jsonResponse}")
@@ -66,6 +58,22 @@ def main(bot_name="Marv"):
                 typewrite(f'{Fore.RED}AuthenticationError: Invalid or Incorrect API_KEY{Style.RESET_ALL}')
                 break
                 
+def callGPT(messages):
+    response = client.chat.completions.create(
+                    model="gpt-3.5-turbo",
+                    messages=messages,
+                    temperature=0.5,
+                    max_tokens=256,
+                    top_p=1,
+                    frequency_penalty=0,
+                    presence_penalty=0,
+                )
+
+    jsonResponse = json.loads(response.model_dump_json())["choices"][0]["message"][
+                    "content"
+                ]
+    return jsonResponse
+
 
 
 if __name__ == "__main__":
